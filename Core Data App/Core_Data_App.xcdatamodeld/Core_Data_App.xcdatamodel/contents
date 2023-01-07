@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Dog" representedClassName="Dog" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="dogCuriosity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DogCuriosity" inverseName="dog" inverseEntity="DogCuriosity"/>
+        <relationship name="dogCuriosity" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DogCuriosity" inverseName="dog" inverseEntity="DogCuriosity"/>
     </entity>
     <entity name="DogCuriosity" representedClassName="DogCuriosity" syncable="YES">
         <attribute name="curiosity" optional="YES" attributeType="String"/>

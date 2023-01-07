@@ -27,6 +27,7 @@ class ViewController: UIViewController {
             let dogs = try context.fetch(Dog.fetchRequest())
             for dogis in dogs {
                 print("Nome: ", dogis.name ?? "")
+                screen?.labelTextView.text! += dogis.name!
             }
             print("------------------")
 
@@ -39,8 +40,12 @@ class ViewController: UIViewController {
     func createDog(){
         let dog = Dog(context: context)
         dog.name = screen?.inputTextView.text
+        
+        let curiosity = DogCuriosity(context: context)
+        curiosity.curiosity = "name 00"
+        
+        dog.addToDogCuriosity(curiosity)
         do {
-            
             try context.save()
             print("Created dog: ", dog.name!)
         }
@@ -71,6 +76,41 @@ class ViewController: UIViewController {
             //err
         }
     }
+    
+    func getDogCuriosity(dog:Dog){
+        do{
+            let request: NSFetchRequest<DogCuriosity> = DogCuriosity.fetchRequest()
+            
+            request.predicate = NSPredicate(format: "dog = %@", dog)
+            
+            var fetchedCurisositys: [DogCuriosity] = []
+            
+            fetchedCurisositys = try context.fetch(request)
+            
+            print("-------")
+            for aux in fetchedCurisositys{
+                print(aux.curiosity!)
+            }
+            
+        }
+        catch{
+            //err
+        }
+    }
+    
+    func getCuriosity(){
+        do{
+            let dog = try context.fetch(Dog.fetchRequest())
+            for aux in dog{
+                getDogCuriosity(dog: aux)
+            }
+            
+        }catch{
+            //err
+        }
+    }
+    
+    
 }
 
 extension ViewController:ViewControllerDelegate{
@@ -83,7 +123,7 @@ extension ViewController:ViewControllerDelegate{
     }
     
     func tappedGetAllDogguinhos() {
-        getAllDogs()
+        getCuriosity()
     }
     
     
